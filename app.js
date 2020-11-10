@@ -8,27 +8,31 @@ calculateResults = (event) => {
     const totalPayment = document.getElementById('totalPayment')
     const totalInterest = document.getElementById('totalInterest')
 
-    const principal = parseFloat(loanAmount.value)
-    const calculatedInterest = parseFloat(loanInterest.value) / 100 / 12
-    const calculatedPayments = parseFloat(loanYears.value) * 12
+    if (loanAmount.value > 0 && loanInterest.value > 0 && loanYears.value > 0){
+        const principal = parseFloat(loanAmount.value)
+        const calculatedInterest = parseFloat(loanInterest.value) / 100 / 12
+        const calculatedPayments = parseFloat(loanYears.value) * 12
 
-    // Calculate monthly payment
-    const x = Math.pow(1 + calculatedInterest, calculatedPayments)
-    const monthly = (principal * x * calculatedInterest) / (x - 1)
+        // Calculate monthly payment
+        const x = Math.pow(1 + calculatedInterest, calculatedPayments)
+        const monthly = (principal * x * calculatedInterest) / (x - 1)
 
-    if (isFinite(monthly)) {
         monthlyPayment.value = monthly.toFixed(3)
         totalPayment.value = (monthly * calculatedPayments).toFixed(3)
         totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(3)
-    }else {
-        showError('Please chek your number')
-    }
 
+        document.querySelector('#loading').style.display = 'none'
+        document.querySelector('#loanResults').style.display = 'block'
+        console.log()
+    }else {
+        showError('Wrong values')
+    }
     event.preventDefault()
 }
 
 // Show error
 showError = (error) => {
+    document.querySelector('#loading').style.display = 'none'
     const errorElement = document.createElement('div')
     // bootstrap class
     errorElement.className = 'alert alert-danger'
@@ -45,8 +49,13 @@ showError = (error) => {
 }
 // Hide error
 hideError = () => {
-    console.log('sdf')
     document.querySelector('.alert').remove()
 }
 // Listen for submit
-document.querySelector('.loanForm').addEventListener('submit', calculateResults)
+document.querySelector('.loanForm').addEventListener('submit', (event) => {
+    document.querySelector('#loanResults').style.display = 'none'
+    document.querySelector('#loading').style.display = 'block'
+    setTimeout(calculateResults, 2000)
+
+    event.preventDefault()
+})

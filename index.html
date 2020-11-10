@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        #loading, #loanResults{
+            display: none;
+        }
+    </style>
 </head>
 <body class="bg-dark">
 <div class="container">
@@ -33,13 +38,9 @@
                         <input type="submit" value="Calculate" class="btn btn-dark btn-block">
                     </div>
                 </form>
-                <!-- LOADER -->
-                <!--
                 <div id="loading">
                   <img src="img/loading.gif" alt="loading">
                 </div>
-                -->
-                <!-- RESULTS -->
                 <div id="loanResults" class="pt-3">
                     <h5>Results</h5>
                     <div class="form-group">
